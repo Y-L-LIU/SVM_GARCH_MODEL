@@ -32,9 +32,9 @@ def construct_window_n(df,percent):
     return train,test
 
 
-ndq = pd.read_csv('./^NDQ_2017_2022.csv').set_index('Date')
-cny = pd.read_csv('./10CNY.B_2017_2022.csv').set_index('Date')
-tsla = pd.read_csv('./TSLA.US_2017_2022.csv').set_index('Date')
+ndq = pd.read_csv('./data/^NDQ_2017_2022.csv').set_index('Date')
+cny = pd.read_csv('./data/10CNY.B_2017_2022.csv').set_index('Date')
+tsla = pd.read_csv('./data/TSLA.US_2017_2022.csv').set_index('Date')
 # Calculate first order difference of log of price
 # Rescale by 100 for fitting the model
 
@@ -43,7 +43,7 @@ percent = [0.5,0.6,0.7,0.9]
 # C = [x for x in range(5,50,5)]
 linear = []
 rbf = []
-for i in range(1,2):
+for i in range(3):
 
         returns =  100*dataset[i].Close.pct_change().dropna()
         returns = returns[::-1]
@@ -59,7 +59,6 @@ for i in range(1,2):
         print(f'rbf_score of set {i} is {rbf_score}')
         rbf.append(float(rbf_score))
         # c = [x for x in range(100,300,10)]
-        c=[10]
         res = []
 
         svr_sigmoid = SVR(kernel='linear',C=5)

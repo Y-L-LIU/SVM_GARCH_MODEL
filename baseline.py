@@ -18,9 +18,9 @@ from sklearn.metrics import r2_score,explained_variance_score,mean_squared_error
 #     web.DataReader(i, 'stooq', start=start, end=end).to_csv('data/'i+'_2017_2022.csv')
 #%%
 
-ndq = pd.read_csv('./^NDQ_2017_2022.csv').set_index('Date')
-cny = pd.read_csv('./10CNY.B_2017_2022.csv').set_index('Date')
-tsla = pd.read_csv('./TSLA.US_2017_2022.csv').set_index('Date')
+ndq = pd.read_csv('./data/^NDQ_2017_2022.csv').set_index('Date')
+cny = pd.read_csv('./data/10CNY.B_2017_2022.csv').set_index('Date')
+tsla = pd.read_csv('./data/TSLA.US_2017_2022.csv').set_index('Date')
 dataset = [ndq, cny, tsla]
 percent = [0.5,0.6,0.7,0.9]
 arch = []
@@ -105,18 +105,18 @@ plt.figure(figsize=(10,8),dpi=100)
 # ax.hlines(y=Yline[1], xmin=11, xmax=26, color='gray', alpha=0.7, linewidth=1, linestyles='dashdot')
 # ax.scatter(y=Yline[1], x=Xline, s=75, color='firebrick', alpha=0.7)
 # plt.show()
-
-for choice in range(4):
-    plt.subplot(2,2,choice+1)
-    plt.plot(Yline[choice],Xline,lw=3.0,ls="--",marker='o',mfc='orange',color = 'firebrick')
-    plt.title("", fontsize=11)
-    plt.ylabel(figure[choice][0],fontsize=12)
-    plt.xlabel(figure[choice][1],fontsize=12)
-    plt.xlim(left = min(Yline[choice])-0.01,right = max(Yline[choice])+0.003)
-plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
-                wspace=0.5, hspace=0.5)
-plt.savefig('./split_ablation')
-plt.show()
+#
+# for choice in range(4):
+#     plt.subplot(2,2,choice+1)
+#     plt.plot(Yline[choice],Xline,lw=3.0,ls="--",marker='o',mfc='orange',color = 'firebrick')
+#     plt.title("", fontsize=11)
+#     plt.ylabel(figure[choice][0],fontsize=12)
+#     plt.xlabel(figure[choice][1],fontsize=12)
+#     plt.xlim(left = min(Yline[choice])-0.01,right = max(Yline[choice])+0.003)
+# plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
+#                 wspace=0.5, hspace=0.5)
+# plt.savefig('./split_ablation')
+# plt.show()
 
 # print(pd.DataFrame(forecasts).T)
 
