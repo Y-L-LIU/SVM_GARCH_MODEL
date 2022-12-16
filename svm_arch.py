@@ -10,7 +10,7 @@ from sklearn.metrics import r2_score,explained_variance_score,mean_squared_error
 import pickle
 import math
 import sys
-
+#
 
 def construct_window_n(df,percent):
     X = []
@@ -19,7 +19,7 @@ def construct_window_n(df,percent):
     sigma_t = []
     for i in range(5, len(vio)):
         sigma_t.append((np.mean(vio[i - 5:i])))
-    sigma_t = np.square(sigma_t)
+    sigma_t = np.sqrt(sigma_t)
     for i in range(5,len(sigma_t)):
         a = []
         for j in range(1,5):
@@ -31,6 +31,28 @@ def construct_window_n(df,percent):
     test = X[int(percent*len(X)):] , y[int(percent*len(X)):]
     return train,test
 
+#baseline_svm
+# def construct_window_n(df,percent):
+#     X = []
+#     y = []
+#     #print(df)
+#     vio = (df ** 2)
+#     #print(vio)
+#     sigma_t = []
+#     for i in range(5, len(vio)):
+#         sigma_t.append((np.mean(vio[i - 5:i])))
+#     #print(sigma_t)
+#     #sigma_t = np.square(sigma_t)
+#     #print(sigma_t)
+#     for i in range(0,len(sigma_t)-1):
+#         a = []
+#         a = [np.sqrt(sigma_t[i]), df[i+4]]
+#         # a.append(i)
+#         X.append(a)
+#         y.append(sigma_t[i+1])
+#     train = X[:int(percent*len(X))] , y[:int(percent*len(X))]
+#     test = X[int(percent*len(X)):] , y[int(percent*len(X)):]
+#     return train,test
 
 ndq = pd.read_csv('./data/^NDQ_2017_2022.csv').set_index('Date')
 cny = pd.read_csv('./data/10CNY.B_2017_2022.csv').set_index('Date')
@@ -89,14 +111,14 @@ for i in range(3):
         plt.subplot(1,2,1)
         plt.plot(x, testset[1], color='r', label='real_vol')
         plt.plot(x, y_rbf, lw=.5,color='b', label='svr_rbf')
-        plt.title('CNY10 SVR-RBF')
+        plt.title('SVR-RBF')
         plt.legend()
         plt.subplot(1,2,2)
         plt.plot(x, testset[1], color='r', label='real_vol')
         plt.plot(x, y_sig,lw=.5,color='b', label='svr_linear')
-        plt.title('CNY10 SVR-LINEAR')
+        plt.title('SVR-LINEAR')
         plt.legend()
-        plt.savefig('CNY10')
+        plt.savefig(f'dataset{i}')
         plt.show()
 # #
 # linear = [0.46877, 0.46419, 0.44844, 0.43002, 0.42052, 0.40307, 0.38965, 0.38741, 0.38464]
